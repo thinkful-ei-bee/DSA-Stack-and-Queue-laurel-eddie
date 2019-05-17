@@ -79,3 +79,58 @@ function display(queue) {
     }
 }
 
+class _NodeDll {
+    constructor(value) {
+        this.value = value,
+        this.next = null,
+        this.previous = null;
+    }
+}
+
+class QueueDll {
+    //set next and previous to null in DLL
+    constructor() {
+        this.first = null;
+        this.last = null;
+    }
+    enqueue(data) {
+        const node = new _Node(data);
+        if (this.first === null) {
+            this.first = node;
+        }
+        if (this.last) {
+            this.last.next = node;
+            //connecting the links to move forw and back
+            node.previous = this.last; 
+        }
+        this.last = node;
+    }
+    dequeue() {
+        if (this.first === null) {
+            return;
+        }
+        const node = this.first;
+        //next node in line
+        this.first = this.first.next;       
+        if(this.first !== null) {
+            //means if it is a node
+            //its null because the first is removed
+            this.first.previous = null;
+        }        
+        if (node === this.last) {
+            
+            this.last = null;
+        }
+        return node.value;
+    }
+}
+const starTrekQNew = new QueueDll;
+
+starTrekQNew.enqueue('Kirk');
+starTrekQNew.enqueue('Spock');
+starTrekQNew.enqueue('Uhura');
+starTrekQNew.enqueue('Sulu');
+starTrekQNew.enqueue('Checkov');
+//needs this to show
+display(starTrekQNew);
+console.log(peek(starTrekQNew));
