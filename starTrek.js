@@ -137,10 +137,50 @@ function matchPara(expression){
   return 'valid paraentheses';
 }
 
-console.log(matchPara('(3+2)*(4)')); // valid
-console.log(matchPara('(3+2)*(4')); // ) at 6
-console.log(matchPara('3+2)*(4)')); // ( at 3
+// console.log(matchPara('(3+2)*(4)')); // valid
+// console.log(matchPara('(3+2)*(4')); // ) at 6
+// console.log(matchPara('3+2)*(4)')); // ( at 3
 
-console.log(matchPara('[3+2]*{4}')); // valid
-console.log(matchPara('[3+2]*{4')); // } at 6
-console.log(matchPara('3+2]*{4}')); // [ at 3
+// console.log(matchPara('[3+2]*{4}')); // valid
+// console.log(matchPara('[3+2]*{4')); // } at 6
+// console.log(matchPara('3+2]*{4}')); // [ at 3
+
+function sortStack(stack) {
+    //creating a temporary stack
+    const tempStack = new Stack;
+    let temp = 0;
+
+    //checking if its not empty
+    while(!isEmpty(stack)) {
+        temp = stack.pop();
+        while(temp !== peek(tempStack)) {
+            //checking is greater than peek
+            if (isEmpty(tempStack)) {
+                tempStack.push(temp);
+                break;
+            }
+            console.log('temp data:', temp, 'tempStack data:', peek(tempStack).data);
+            if (temp > peek(tempStack).data) {
+             
+                tempStack.push(temp);
+                break;
+            } else {
+                //removing the node in tempStack and putting it back on top
+                stack.push(tempStack.pop());
+            }
+        }
+    }
+    //this is taking the top value of tempstack and putting it at the ///bottom of the original stack  
+    while(!isEmpty(tempStack)) {
+        //increase stack while decreasing tempstack
+        stack.push(tempStack.pop());
+    }  
+}
+const a = new Stack;
+a.push(1);
+a.push(7);
+a.push(3);
+a.push(12);
+
+sortStack(a);
+display(a);
