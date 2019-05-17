@@ -194,3 +194,34 @@ console.log(dance.pairUp());
 console.log(dance.pairUp());
 console.log(dance.pairUp());
 console.log(dance.pairUp());
+
+class QueueBank {
+    constructor() {
+        this.customers = new Queue;
+    }
+    ophBank(queue) {
+        if(!queue.first) {
+            console.log('Queue is empty');
+        }
+        let customers = queue.first;
+        while(customers !== null) {
+            console.log('the current customer is', customers.value);
+            if(Math.random() < 0.25){
+                console.log('uh oh they went to the end of the line', customers.value);
+                queue.enqueue(queue.dequeue());
+            } else {
+                //if they are the lucky ones
+                //get out of line and they're done
+                queue.dequeue();
+            }
+            customers = customers.next;
+        }
+    }
+    addCustomer(name) {
+        this.customers.enqueue(name);
+    }
+}
+const bank = new QueueBank;
+bank.addCustomer('Eddie');
+bank.addCustomer('Laurel');
+bank.ophBank(bank.customers);
