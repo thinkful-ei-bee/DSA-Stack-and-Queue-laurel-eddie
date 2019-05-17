@@ -135,3 +135,62 @@ starTrekQNew.enqueue('Checkov');
 //needs this to show
 display(starTrekQNew);
 console.log(peek(starTrekQNew));
+
+
+
+// Square dance pairing
+class squareDance{
+  constructor(){
+    this.males = new Queue;
+    this.females = new Queue;
+  }
+
+  add(person){
+    // person = 'F Jane'
+    const gender = person[0];
+    const name = person.slice(2);
+    if (gender === 'F'){
+      this.females.enqueue(name);
+    }else{
+      this.males.enqueue(name);
+    }
+  }
+
+  pairUp(){
+    if (isEmpty(this.females) && isEmpty(this.males)){
+      return 'There are no dancers';
+    }
+    if (isEmpty(this.females)){
+      return `There are ${this._length(this.males)} male dances waiting to dance`;
+    }
+    if (isEmpty(this.males)){
+      return `There are ${this._length(this.females)} male dances waiting to dance`;
+    }
+    return `Female dancer is ${this.females.dequeue()}, and the male dancer is ${this.males.dequeue()}`;
+  }
+
+  _length(queue){
+    let length = 0;
+    let currNode = queue.first;
+    while(currNode){
+      length++;
+      currNode = currNode.next;
+    }
+    return length;
+  }
+}
+
+const dance = new squareDance;
+
+dance.add('F Jane');
+dance.add('M Frank');
+dance.add('M John');
+dance.add('M Sherlock');
+dance.add('F Madonna');
+dance.add('M David');
+dance.add('M Christopher');
+dance.add('F Beyonce');
+console.log(dance.pairUp());
+console.log(dance.pairUp());
+console.log(dance.pairUp());
+console.log(dance.pairUp());
